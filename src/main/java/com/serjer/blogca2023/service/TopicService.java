@@ -24,4 +24,8 @@ public class TopicService {
     public Topic addNewTopic(Topic newTopic) {
         return topicRepository.save(newTopic);
     }
+
+    public List<Topic> filterTopicsByKeyword(String keyword) {
+        return topicRepository.findTopicsByKeyword(keyword);
+    }
 }
