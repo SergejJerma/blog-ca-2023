@@ -2,22 +2,23 @@ package com.serjer.blogca2023.service;
 
 import com.serjer.blogca2023.entity.Topic;
 import com.serjer.blogca2023.repo.TopicRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.util.Collections;
 import java.util.List;
 
 @Service
 public class TopicService {
 
-    @Autowired
-    private TopicRepository topicRepository;
+    private final TopicRepository topicRepository;
+
+    public TopicService(TopicRepository topicRepository) {
+        this.topicRepository = topicRepository;
+    }
 
     public List<Topic> getAllTopics() {
         return topicRepository.findAll();

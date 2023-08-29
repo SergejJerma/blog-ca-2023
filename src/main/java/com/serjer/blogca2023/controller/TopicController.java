@@ -2,19 +2,14 @@ package com.serjer.blogca2023.controller;
 
 import com.serjer.blogca2023.entity.Comment;
 import com.serjer.blogca2023.entity.Topic;
-import com.serjer.blogca2023.repo.CommentRepository;
 import com.serjer.blogca2023.service.CommentService;
 import com.serjer.blogca2023.service.TopicService;
-import jakarta.websocket.server.PathParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,11 +20,14 @@ import java.util.stream.IntStream;
 @RequestMapping("/topics")
 public class TopicController {
 
-    @Autowired
-    private TopicService topicService;
 
-    @Autowired
-    private CommentService commentService;
+    private final TopicService topicService;
+    private final CommentService commentService;
+
+    public TopicController(TopicService topicService, CommentService commentService) {
+        this.topicService = topicService;
+        this.commentService = commentService;
+    }
 
     @GetMapping
     public String getTopics(Model model) {
