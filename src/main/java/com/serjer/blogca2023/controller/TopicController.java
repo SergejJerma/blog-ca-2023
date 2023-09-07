@@ -4,10 +4,12 @@ import com.serjer.blogca2023.entity.Comment;
 import com.serjer.blogca2023.entity.Topic;
 import com.serjer.blogca2023.service.CommentService;
 import com.serjer.blogca2023.service.TopicService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,13 +57,16 @@ public class TopicController {
 
 
     @GetMapping("/add")
-    public String getAddTopicForm(Model model) {
-        model.addAttribute("newTopic", new Topic());
+    public String getAddTopicForm(Topic topic) {
+      //  model.addAttribute("newTopic", new Topic());
         return "addTopic";
     }
 
-    @PostMapping
-    public String postTopics(Topic newTopic, Model model) {
+    @PostMapping("/add")
+    public String postTopics(@Valid Topic newTopic, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "addTopic";
+        }
         topicService.addNewTopic(newTopic);
         return "redirect:/topics";
     }

@@ -10,21 +10,55 @@
 <header th:insert="fragments/fragments.html :: header"> </header>
 
 <h1>New topic submission form</h1>
-<form th:action="@{/topics}" th:object="${newTopic}" method="post">
-    <p>
-        <label>Topic title:
-            <input type="text" th:field="*{title}" />
-        </label>
-    </p>
-    <p>Topic header:
-        <label>
-            <input type="text" th:field="*{header}" />
-        </label>
-    </p>
-    <p>
-        <input type="submit" value="Submit" />
-        <input type="reset" value="Reset" />
-    </p>
+<!--<form action="#" th:action="@{/topics}" th:object="${newTopic}" method="post">-->
+<!--    <p>-->
+<!--        <label>Topic title:-->
+<!--            <input type="text" th:field="*{title}" />-->
+<!--        </label>-->
+<!--    </p>-->
+<!--    <p>Topic header:-->
+<!--        <label>-->
+<!--            <input type="text" th:field="*{header}" />-->
+<!--        </label>-->
+<!--    </p>-->
+<!--    <h3>All errors in place:</h3>-->
+<!--    <div th:if="${#fields.hasAnyErrors()}">-->
+<!--        <ul>-->
+<!--            <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <p>-->
+<!--        <input type="submit" value="Submit" />-->
+<!--        <input type="reset" value="Reset" />-->
+<!--    </p>-->
+<!--</form>-->
+
+<form action="#" th:action="@{/topics/add}" th:object="${topic}"
+      method="post" class="form">
+    <div>
+        <label for="title">Name</label> <input type="text"
+                                                  th:field="*{title}" id="title" placeholder="Enter title">
+        <ul>
+            <li th:each="err : ${#fields.errors('title')}" th:text="${err}"
+                class="error" />
+        </ul>
+    </div>
+    <div>
+        <label for="header">Name</label> <input type="text"
+                                               th:field="*{header}" id="header" placeholder="Enter header">
+        <ul>
+            <li th:each="err : ${#fields.errors('header')}" th:text="${err}"
+                class="error" />
+        </ul>
+    </div>
+
+    <h3>All errors in place:</h3>
+    <div th:if="${#fields.hasAnyErrors()}">
+        <ul>
+            <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+        </ul>
+    </div>
+    <input type="submit" value="Add Topic">
 </form>
 
 <footer th:insert="fragments/fragments.html :: footer"> </footer>
