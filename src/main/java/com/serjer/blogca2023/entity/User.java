@@ -1,36 +1,63 @@
 package com.serjer.blogca2023.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Set;
+
 
 @Entity
 @NoArgsConstructor
 @Data
-public class User {
-
+@Table(name = "usr")
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Username cannot be empty")
+    private String username;
+    @NotBlank(message = "Password cannot be empty")
+    private String password;
+    private boolean active;
 
-    @NotEmpty(message = "User's name cannot be empty.")
-    @Size(min = 5, max = 250)
-    private String fullName;
-
-    @NotEmpty(message = "User's email cannot be empty.")
-    @Size(min = 7, max = 320)
-    @Email
+    @Email(message = "Email is not correct")
+    @NotBlank(message = "Email cannot be empty")
     private String email;
 
-    @NotNull(message = "User's age cannot be null.")
-    @Min(value = 18)
-    private Integer age;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
-    private String country;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-    private String phoneNumber;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
 }

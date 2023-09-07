@@ -25,7 +25,6 @@ public class UserController {
         if (result.hasErrors()) {
             return "user/addUser";
         }
-        System.out.println(">>>>>>>>>" + user.getFullName());
 
         return "redirect:/users/add";
     }
