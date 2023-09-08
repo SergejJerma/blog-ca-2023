@@ -1,8 +1,10 @@
 package com.serjer.blogca2023.entity;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor

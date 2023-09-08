@@ -1,7 +1,8 @@
 package com.serjer.blogca2023.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

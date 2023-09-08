@@ -4,7 +4,7 @@ import com.serjer.blogca2023.entity.Comment;
 import com.serjer.blogca2023.entity.Topic;
 import com.serjer.blogca2023.service.CommentService;
 import com.serjer.blogca2023.service.TopicService;
-import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
